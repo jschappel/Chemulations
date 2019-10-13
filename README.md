@@ -9,3 +9,4 @@
 - Sigfig rounding
 - % error
 - Detailed SD view
+- RSD and %RSD
