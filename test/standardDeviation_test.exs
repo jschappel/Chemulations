@@ -14,15 +14,15 @@ defmodule SD_Test do
     assert 39.0 = SD.avg(@data3, 0, length(@data3),  multSigFigs(@data3))
   end
 
-  test "Calculate the standard deviation with sigfugs" do
-    assert 21.0 = SD.findSDWithSig(@data1)
-    assert 2.61 = SD.findSDWithSig(@data2)
-    assert 48.0 = SD.findSDWithSig(@data3)
+  test "Calculate the standard deviation with sigfigs" do
+    assert 21.0 = SD.findSD(@data1, multSigFigs(@data1))
+    assert 2.61 = SD.findSD(@data2, multSigFigs(@data2))
+    assert 48.0 = SD.findSD(@data3, multSigFigs(@data3))
   end
 
   test "Calculate the standard deviation to 10 decimal places" do
-    assert 20.8166599947 = SD.findSD(@data1)
-    assert 2.6099245679 = SD.findSD(@data2)
-    assert 48.1205663473 = SD.findSD(@data3)
+    assert 20.8166599947 = SD.findSD(@data1, 10)
+    assert 2.6099245679 = SD.findSD(@data2, 10)
+    assert 48.1205663473 = SD.findSD(@data3, 10)
   end
 end
