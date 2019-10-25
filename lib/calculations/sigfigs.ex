@@ -30,7 +30,8 @@ defmodule Calculations.SigFigs do
   end
 
 
-  @doc """ TODO: UPDATE COMMENT
+  @doc """
+  TODO: UPDATE COMMENT
   getsmallest: flaot accumulator -> number
   Purpose: returns the of sigfigs for multiplication/ddevision
   """
