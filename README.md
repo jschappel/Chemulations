@@ -3,10 +3,10 @@
  
  ### Current Features
  - Computes SD
- 
+ - RSD and %RSD
  
 ### Comming Soon
 - Sigfig rounding
 - % error
-- Detailed SD view
-- RSD and %RSD
+- Overall view
+
