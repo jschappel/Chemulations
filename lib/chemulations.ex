@@ -3,13 +3,53 @@ defmodule Chemulations do
   This it the main driver for the program.
   """
   import Calculations.StandardDeviation, only: [findSD: 3, findAvg: 2]
+  import Calculations.TableFormatter, only: [create_table: 2]
   import Calculations.RSD, only: [findRSD: 3, findPRSD: 2]
   import Calculations.SigFigs, only: [multSigFigs: 1]
 
 
+
+
+  @doc """
+  calcAll: integer(optional) list-of-integers/floats -> float
+  Purpose: calculates the Avg, SD, RSD, %RSD of a given set of numbers and displays
+    then in a table. If the optional arg is not supplied then Sigfigs are used in the
+    answer.
+
+    ## Examples
+      iex> Chemulations.calcAll([10, 20, 40, -10])
+      Avg | SD | RSD | PRSD
+      ----+----+---- +-----
+      15  | 21 | 1  | 139
+
+      iex> Chemulations.calcAll([10, 20, 40, -10], 10)
+      Avg | SD          | RSD         | PRSD
+      ----+-------------+-------------+------------
+      15  | 20.81665999 | 1.387777333 | 138.7777333
+  """
+  def calcAll(aList, rounding) when is_list(aList) and is_integer(rounding) do
+    with avg = findAvg(aList, rounding),
+    sd = findSD(avg, aList, rounding),
+    rsd = findRSD(sd, avg, rounding),
+    prsd = findPRSD(rsd, rounding) do
+      create_table([:Avg, :SD, :RSD, :PRSD], [List.flatten([avg, sd, rsd, prsd])])
+    end
+  end
+  def calcAll(_, _), do: throw "Please insert the correct args: calcAll(LIST) or calcAll(INT, LIST)"
+  def calcAll(aList) when is_list(aList)do
+    with rounding = multSigFigs(aList),
+    avg = findAvg(aList, rounding),
+    sd = findSD(avg, aList, rounding),
+    rsd = findRSD(sd, avg, rounding),
+    prsd = findPRSD(rsd, rounding) do
+      create_table([:Avg, :SD, :RSD, :PRSD], [List.flatten([avg, sd, rsd, prsd])])
+    end
+  end
+  def calcAll(_), do: throw "Please insert the correct args: calcAll(LIST) or calcAll(INT, LIST)"
+
   @doc """
   calcSD: integer(optional) list-of-integers/floats -> float
-  Purpose: calculates the SD of a geven set of numbers. If the optional arg
+  Purpose: calculates the SD of a given set of numbers. If the optional arg
     is not supplied then Sigfigs are used in the answer
 
     ## Examples
@@ -36,7 +76,7 @@ defmodule Chemulations do
 
   @doc """
   calcRSD: integer(optional) list-of-integers/floats -> float
-  Purpose: calculates the RSD of a geven set of numbers. If the optional arg
+  Purpose: calculates the RSD of a given set of numbers. If the optional arg
     is not supplied then Sigfigs are used in the answer
 
     ## Examples
