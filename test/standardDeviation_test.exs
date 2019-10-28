@@ -11,21 +11,22 @@ defmodule SD_Test do
 
   test "Calculating the avg for a list of numbers" do
     D.set_context(%D.Context{D.get_context | precision: 3})
+    x = SD.findAvg(@data1, 3)
+    y = SD.findAvg(@data2, 3)
+    z = SD.findAvg(@data3, 3)
 
-    assert 15.0 = D.to_float(SD.avg(@data1, 0, length(@data1)))
-    assert 3.68 = D.to_float(SD.avg(@data2, 0, length(@data2)))
-    assert 38.7 = D.to_float(SD.avg(@data3, 0, length(@data3)))
+    assert 15.0 = D.to_float(x[:Avg])
+    assert 3.68 = D.to_float(y[:Avg])
+    assert 38.7 = D.to_float(z[:Avg])
   end
 
-#  test "Calculate the standard deviation with sigfigs" do
-#    assert 21.0 = SD.findSD(@data1, multSigFigs(@data1))
-#    assert 2.61 = SD.findSD(@data2, multSigFigs(@data2))
-#    assert 48.0 = SD.findSD(@data3, multSigFigs(@data3))
-#  end
-
   test "Calculate the standard deviation to 10 decimal places" do
-    assert 20.81665999 = SD.findSD(@data1, 10)
-    assert 2.609924568 = SD.findSD(@data2, 10)
-    assert 48.12056635 = SD.findSD(@data3, 10)
+    x = SD.findSD(SD.findAvg(@data1, 10), @data1, 10)
+    y = SD.findSD(SD.findAvg(@data2, 10), @data2, 10)
+    z = SD.findSD(SD.findAvg(@data3, 10), @data3, 10)
+
+    assert 20.81665999 = D.to_float(x[:SD])
+    assert 2.609924568 = D.to_float(y[:SD])
+    assert 48.12056635 = D.to_float(z[:SD])
   end
 end

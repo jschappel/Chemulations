@@ -13,7 +13,9 @@ defmodule Calculations.RSD do
   """
   def findRSD(sd, avg, rounding) do
     D.set_context(%D.Context{D.get_context | precision: rounding})
-    D.div(sd,avg)
+
+    [RSD: D.div(sd[:SD], avg[:Avg])]
+
   end
 
 
@@ -25,6 +27,6 @@ defmodule Calculations.RSD do
   """
   def findPRSD(rsd, rounding) do
     D.set_context(%D.Context{D.get_context | precision: rounding})
-    D.mult(res, 100)
+    [PRSD: D.mult(rsd[:RSD], 100)]
   end
 end
