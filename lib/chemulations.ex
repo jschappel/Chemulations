@@ -6,6 +6,7 @@ defmodule Chemulations do
   import Calculations.TableFormatter, only: [create_table: 2]
   import Calculations.RSD, only: [findRSD: 3, findPRSD: 2]
   import Calculations.SigFigs, only: [multSigFigs: 1]
+  import Calculations.FileEditor, only: [writeToFile: 1]
 
 
 
@@ -97,4 +98,24 @@ defmodule Chemulations do
     IO.puts("STILL NEEDS TO BE IMPLIMENTED")
   end
   def calcRSD(_), do: throw "Please insert the correct args: calcRSD(LIST) or calcRSD(INT, LIST)"
+
+
+
+  def excelAll(aList, rounding) when is_list(aList) do
+    with avg = findAvg(aList, rounding),
+    sd = findSD(avg, aList, rounding),
+    rsd = findRSD(sd, avg, rounding),
+    prsd = findPRSD(rsd, rounding),
+    dataList = [[:Avg, :StandardDeviation, :RelativeSD, :PercentRelativeSD], [ Decimal.to_float(avg[:Avg]),  Decimal.to_float(sd[:SD]),  Decimal.to_float(rsd[:RSD]),  Decimal.to_float(prsd[:PRSD]) ] ] do
+      case writeToFile(dataList) do
+        :ok -> IO.puts("File was sucessfully created")
+        _ -> IO.puts("There was an error creating the file")
+      end
+    end
+  end
+  def excelAll(_, _), do: throw "Please insert the correct args: excelALl(LIST) or excelALl(INT, LIST)"
+  def excelAll(aList) when is_list(aList) do
+    IO.puts("STILL NEEDS TO BE IMPLIMENTED")
+  end
+  def excelAll(_), do: throw "Please insert the correct args: excelALl(LIST) or excelALl(INT, LIST)"
 end

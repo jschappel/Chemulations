@@ -2,9 +2,9 @@
  A program that computes statistical calculations for chemistry
  
  ### Current Features
- - Computes SD
- - RSD and %RSD
- - Overall view
+ - Computes Avg, SD, RSD and %RSD
+ - CLI Report Views
+ - Export Data to CSV Files
  
 ### Comming Soon
 - Sigfig rounding
